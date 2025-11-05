@@ -80,10 +80,10 @@ export default function GraphSelector({ graphData }: GraphSelectorProps) {
   return (
     <div className="w-full max-w-7xl mx-auto p-6 space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold text-gray-800">
+        <h1 className="text-4xl font-bold text-gray-100">
           Synchronicity Visualizer
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-400">
           Explore patterns in synchronicity observations across time and users
         </p>
       </div>
@@ -94,25 +94,25 @@ export default function GraphSelector({ graphData }: GraphSelectorProps) {
           <button
             key={option.id}
             onClick={() => setSelectedGraph(option.id)}
-            className={`p-4 rounded-lg border-2 text-left transition-all hover:shadow-md ${
+            className={`p-4 rounded-lg border-2 text-left transition-all hover:shadow-lg ${
               selectedGraph === option.id
-                ? "border-blue-500 bg-blue-50 shadow-md"
-                : "border-gray-200 bg-white hover:border-gray-300"
+                ? "border-blue-400 bg-gray-800 shadow-lg shadow-blue-500/20"
+                : "border-gray-700 bg-gray-800/50 hover:border-gray-600 hover:bg-gray-800"
             }`}
           >
-            <h3 className="font-semibold text-lg mb-1">{option.name}</h3>
-            <p className="text-sm text-gray-600">{option.description}</p>
+            <h3 className="font-semibold text-lg mb-1 text-gray-100">{option.name}</h3>
+            <p className="text-sm text-gray-400">{option.description}</p>
           </button>
         ))}
       </div>
 
       {/* Current Graph Info */}
-      <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
-        <div className="border-l-4 border-blue-500 pl-4">
-          <h2 className="text-2xl font-bold text-gray-800">
+      <div className="bg-gray-800 rounded-lg shadow-xl p-6 space-y-4 border border-gray-700">
+        <div className="border-l-4 border-blue-400 pl-4">
+          <h2 className="text-2xl font-bold text-gray-100">
             {currentOption.name}
           </h2>
-          <p className="text-gray-600 mt-1">{currentOption.description}</p>
+          <p className="text-gray-400 mt-1">{currentOption.description}</p>
         </div>
 
         {/* Chart */}
