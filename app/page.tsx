@@ -1,5 +1,7 @@
-import FrequencyChart from "@/components/frequency-chart";
+import GraphSelector, { GraphType } from "@/components/graph-selector";
 import { SyncData } from "@/types/sync-data";
+import { getDataForAccuracyDistribution } from "@/utils/getDataForAccuracyDistribution";
+import { getDataForHourDistribution } from "@/utils/getDataForHourDistribution";
 import { getDataForSyncFrequency } from "@/utils/getDataForSyncFrequency";
 import { getDataForSyncFrequencyMonths } from "@/utils/getDataForSyncFrequencyMonths";
 import { getDataForUserSyncs } from "@/utils/getDataForUserSyncs";
@@ -11,15 +13,18 @@ export default function Home() {
   const rawData = fs.readFileSync(filePath, "utf8");
   const data: SyncData = JSON.parse(rawData);
 
-  const syncFrequencyData = getDataForSyncFrequency(data);
-  // const syncMonthFrequencyData = getDataForSyncFrequencyMonths(data);
-  // const userSyncData = getDataForUserSyncs(data);
+  // Prepare all graph data
+  const graphData: Record<GraphType, { labels: string[]; frequencies: number[] }> = {
+    "sync-frequency": getDataForSyncFrequency(data),
+    "monthly-trends": getDataForSyncFrequencyMonths(data),
+    "user-activity": getDataForUserSyncs(data),
+    "accuracy-distribution": getDataForAccuracyDistribution(data),
+    "hour-distribution": getDataForHourDistribution(data),
+  };
+
   return (
-    <div className="container mx-auto mt-20">
-      <FrequencyChart
-        labels={syncFrequencyData.labels}
-        frequencies={syncFrequencyData.frequencies}
-      />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-8">
+      <GraphSelector graphData={graphData} />
     </div>
   );
 }
